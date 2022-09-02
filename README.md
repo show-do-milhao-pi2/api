@@ -1,4 +1,4 @@
-# frontend
+# API
 API show do milhão, um projeto da disciplina projeto integrador II da UFC - Crateús
 
 ### Comandos úteis do Git
