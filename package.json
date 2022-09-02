@@ -6,13 +6,18 @@
   "scripts": {
     "start": "tsnd src/server.ts",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/index.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "migration:create": "typeorm migration:create -n",
+    "migrate": "npx ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
+    "migrate:revert": "npx ts-node --transpile-only ./node_modules/typeorm/cli.js migration:revert"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.12.1",
