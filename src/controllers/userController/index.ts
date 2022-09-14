@@ -4,10 +4,8 @@ import { DeleteUserController } from "./delete/DeleteUserController";
 import { UpdateUserController } from "./update/UpdateUserController";
 import { getByNicknameController } from "./getByNickname/GetByNicknameUserController";
 import { FilterUserController } from "./filter/FilterUserController";
-import { ResetPasswordController } from "./resetPassword/ResetPasswordController";
 
 const getNicknameController = new getByNicknameController().handle;
-const resetPasswordController = new ResetPasswordController().handle;
 const signInController = new SignInUserController().handle;
 const createController = new CreateController().handle;
 const deleteController = new DeleteUserController().handle;
@@ -21,5 +19,4 @@ export const controllers = {
   filterController,
   updateController,
   getNicknameController,
-  resetPasswordController,
 };
