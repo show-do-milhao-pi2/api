@@ -13,7 +13,7 @@ export const setupUpdateUser: Setup = (userRepo, encrypter) => async input => {
   if (input.password != null) {
     hashedPassword = await encrypter.encrypt(input.password as any)
   }
-  const user = await userRepo.update(Object.assign({}, input, { password: hashedPassword }))
+  const user = await userRepo.update(Object.assign({}, input, { password: hashedPassword ?? input.password }))
   if (user !== undefined) return user
   throw new ContentNotFound('user')
 }

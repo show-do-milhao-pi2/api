@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Status, User } from '.'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Status, User, Option, Notification, Game } from '.'
 
 @Entity({ name: 'questions' })
 export class Question {
@@ -16,10 +16,19 @@ export class Question {
   updatedAt?: Date
 
   @ManyToOne(() => User, user => user.questions, { cascade: false })
-  @JoinColumn({ name: 'id_user_creator', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'user', referencedColumnName: 'id' })
   user?: User
 
   @ManyToOne(() => Status, status => status.questions, { cascade: false })
-  @JoinColumn({ name: 'id_status', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'status', referencedColumnName: 'id' })
   status?: Status
+
+  @OneToMany(() => Option, question => question.question, { lazy: false })
+  options?: Option[]
+
+  @OneToMany(() => Notification, question => question.question, { lazy: false })
+  notifications?: Notification[]
+
+  @OneToMany(() => Game, game => game.question, { lazy: false })
+  games?: Game[]
 }

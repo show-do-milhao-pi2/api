@@ -23,10 +23,9 @@ export class UpdateQuestionController extends Controller {
     }
   }
 
-  override async buildValidators ({ statement, status }: HttpRequest): Promise<Validator[]> {
+  override async buildValidators ({ status }: HttpRequest): Promise<Validator[]> {
     return [
-      ...builder.of({ value: statement, fieldName: 'statement' }).required().build(),
-      ...(await builder.of({ value: status, fieldName: 'status' }).required().exists(Status)).build()
+      ...(await builder.of({ value: status, fieldName: 'status' }).sometimes().exists(Status)).build()
 
     ]
   }
