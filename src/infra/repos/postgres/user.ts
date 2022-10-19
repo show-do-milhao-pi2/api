@@ -2,8 +2,10 @@ import { User } from '@/infra/repos/postgres/entities'
 import { DeleteUser, LoadUsers, UpdateUser, ShowUser, InsertUser, ShowUserByNickName } from '@/domain/contracts/repos'
 
 import { PgRepository } from '@/infra/repos/postgres/repository'
+import { Not } from 'typeorm'
 
 type GetOutput = LoadUsers.Output
+type GetInput = LoadUsers.Input
 type ShowNickNameInput = ShowUserByNickName.Input
 type ShowNickNameOutput = ShowUserByNickName.Output
 type ShowInput = ShowUser.Input
@@ -16,12 +18,12 @@ type DeleteInput = DeleteUser.Input
 type DeleteOutput = DeleteUser.Output
 
 export class UserRepository extends PgRepository implements LoadUsers, ShowUser, UpdateUser, DeleteUser, InsertUser, ShowUserByNickName {
-  async get (): Promise<GetOutput> {
-    return await this.getRepository(User).find({ order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions'] })
+  async get (input: GetInput): Promise<GetOutput> {
+    return await this.getRepository(User).find(input !== undefined ? { order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'games', 'games.question', 'games.award', 'games.help', 'games.finished', 'games.option'], where: { id: Not(input.id) } } : { order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'games', 'games.question', 'games.award', 'games.help', 'games.finished', 'games.option'] })
   }
 
   async show ({ id }: ShowInput): Promise<ShowOutput> {
-    return await this.getRepository(User).findOne(id, { select: ['id', 'name', 'nickname'], relations: ['questions'] })
+    return await this.getRepository(User).findOne(id, { select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'games', 'games.question', 'games.award', 'games.help', 'games.finished', 'games.option'] })
   }
 
   async showByNickName ({ nickname }: ShowNickNameInput): Promise<ShowNickNameOutput> {

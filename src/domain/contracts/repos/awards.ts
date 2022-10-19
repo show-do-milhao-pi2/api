@@ -1,7 +1,7 @@
 
 export type Awards = {
   id: number
-  award?: string
+  award?: number
 }
 
 export interface ListAwards {

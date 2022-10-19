@@ -1,10 +1,11 @@
-import { Status, User } from '.'
+import { Notification, Status, User } from '.'
 
 export type Question = {
   id: number
   statement?: string
   status?: Status
   user?: User
+  notifications?: Notification[]
   createdAt?: Date
   updatedAt?: Date
 }
@@ -36,6 +37,8 @@ export namespace UpdateQuestion {
     statement?: string
     status?: Status
     user?: User
+    notifications?: Notification[]
+
   }
   export type Output = Question | undefined
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Game } from './game'
 
 @Entity({ name: 'awards' })
 export class Awards {
@@ -6,5 +7,8 @@ export class Awards {
   id!: number
 
   @Column()
-  award?: string
+  award?: number
+
+  @OneToMany(() => Game, game => game.award, { lazy: false })
+  games?: Game[]
 }

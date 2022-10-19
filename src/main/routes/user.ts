@@ -7,15 +7,12 @@ import {
   makeDeleteUserController,
   makeGetUserController,
   makeShowUserController,
-  makeInsertUserController,
-  makeLoggedUserController
+  makeInsertUserController
 } from '@/main/factories/application/controllers/user'
 
 export default (router: Router): void => {
   router.get('/users', auth, adapt(makeGetUserController()))
   router.get('/users/:id', auth, adapt(makeShowUserController()))
-  router.get('/users/me', auth, adapt(makeLoggedUserController()))
-  router.post('/users/me', auth, adapt(makeLoggedUserController()))
   router.post('/users', adapt(makeInsertUserController()))
   router.post('/reset-password', auth, adapt(makeResetPasswordController()))
   router.put('/users/:id', auth, adapt(makeUpdateUserController()))

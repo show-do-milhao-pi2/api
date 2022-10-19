@@ -17,12 +17,12 @@ export class createQuestionsTable1663186866923 implements MigrationInterface {
             type: 'varchar'
           },
           {
-            name: 'id_user_creator',
+            name: 'user',
             type: 'int',
             isNullable: true
           },
           {
-            name: 'id_status',
+            name: 'status',
             type: 'int',
             default: 1
           },
@@ -40,8 +40,8 @@ export class createQuestionsTable1663186866923 implements MigrationInterface {
       })
     )
 
-    const statusForeignKey = new CreateForeignKey('id_status', 'id', 'status').new()
-    const userForeignKey = new CreateForeignKey('id_user_creator', 'id', 'users').new()
+    const statusForeignKey = new CreateForeignKey('status', 'id', 'status').new()
+    const userForeignKey = new CreateForeignKey('user', 'id', 'users').new()
     await queryRunner.createForeignKeys('questions', [statusForeignKey, userForeignKey])
   }
 

@@ -1,4 +1,4 @@
-import { Question } from '.'
+import { Notification, Question } from '.'
 
 export type User = {
   id: number
@@ -6,16 +6,18 @@ export type User = {
   nickname?: string
   avatar?: string
   password?: string
+  notifications?: Notification[]
   questions?: Question[]
   createdAt?: Date
   updatedAt?: Date
 }
 
 export interface LoadUsers {
-  get: () => Promise<LoadUsers.Output>
+  get: (input: LoadUsers.Input) => Promise<LoadUsers.Output>
 }
 
 export namespace LoadUsers {
+  export type Input = {id: number}
   export type Output = User[]
 }
 

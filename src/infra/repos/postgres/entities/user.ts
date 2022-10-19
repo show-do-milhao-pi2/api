@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Question, Log } from '.'
+import { Question, Log, Notification, Game } from '.'
 
 @Entity({ name: 'users' })
 export class User {
@@ -29,4 +29,10 @@ export class User {
 
   @OneToMany(() => Question, question => question.user, { lazy: false })
   questions?: Question[]
+
+  @OneToMany(() => Notification, notification => notification.user, { lazy: false })
+  notifications?: Notification[]
+
+  @OneToMany(() => Game, game => game.user, { lazy: false })
+  games?: Game[]
 }
