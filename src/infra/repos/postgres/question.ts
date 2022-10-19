@@ -15,11 +15,11 @@ type DeleteOutput = DeleteQuestion.Output
 
 export class QuestionRepository extends PgRepository implements LoadQuestions, ShowQuestion, UpdateQuestion, DeleteQuestion, InsertQuestion {
   async get (): Promise<GetOutput> {
-    return await this.getRepository(Question).find({ order: { statement: 'ASC' }, relations: ['status', 'notifications'] })
+    return await this.getRepository(Question).find({ order: { statement: 'ASC' }, relations: ['status', 'notifications', 'options'] })
   }
 
   async show ({ id }: ShowInput): Promise<ShowOutput> {
-    return await this.getRepository(Question).findOne(id, { relations: ['status', 'notifications'] })
+    return await this.getRepository(Question).findOne(id, { relations: ['status', 'notifications', 'options'] })
   }
 
   async insert (input: InsertInput): Promise<InsertOutput> {

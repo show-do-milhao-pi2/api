@@ -37,6 +37,8 @@ export namespace UpdateQuestion {
     statement?: string
     status?: Status
     user?: User
+    notifications?: Notification[]
+
   }
   export type Output = Question | undefined
 }
