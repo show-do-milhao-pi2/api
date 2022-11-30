@@ -15,7 +15,4 @@ export class Option {
   @ManyToOne(() => Question, question => question.options, { cascade: false })
   @JoinColumn({ name: 'question', referencedColumnName: 'id' })
   question?: Question
-
-  @OneToMany(() => Game, games => games.option, { lazy: false })
-  games?: Game[]
 }

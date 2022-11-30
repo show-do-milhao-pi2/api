@@ -1,6 +1,7 @@
 
-import { json, Express } from 'express'
+import express, { json, Express } from 'express'
 import cors from 'cors'
+import { resolve } from 'path'
 
 export const setupMiddlewares = (app: Express): void => {
   app.use(cors())
@@ -9,4 +10,5 @@ export const setupMiddlewares = (app: Express): void => {
     res.type('json')
     next()
   })
+  app.use('/images/', express.static(resolve(__dirname, '..', '..', '..', 'uploads', 'images')))
 }

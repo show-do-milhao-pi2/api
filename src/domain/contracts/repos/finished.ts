@@ -1,7 +1,7 @@
 
 export type Finished = {
   id: number
-  because?: number
+  because?: string
 }
 
 export interface ListFinished {

@@ -4,7 +4,6 @@ import { Controller } from '@/application/controllers'
 import { InsertGame } from '@/domain/usecases/game'
 
 import { InsertGame as Save, Game as IGame } from '@/domain/contracts/repos'
-import { Question } from '@/infra/repos/postgres/entities'
 
 type HttpRequest = Save.Input
 
@@ -23,10 +22,9 @@ export class InsertGameController extends Controller {
     }
   }
 
-  override async buildValidators ({ user, question }: HttpRequest): Promise<Validator[]> {
+  override async buildValidators ({ user }: HttpRequest): Promise<Validator[]> {
     return [
-      ...builder.of({ value: user, fieldName: 'user' }).required().build(),
-      ...(await builder.of({ value: question, fieldName: 'question' }).required().exists(Question)).build()
+      ...builder.of({ value: user, fieldName: 'user' }).required().build()
     ]
   }
 }
