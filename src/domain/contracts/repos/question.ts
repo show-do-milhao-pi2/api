@@ -1,10 +1,12 @@
-import { Notification, Status, User } from '.'
+import { Notification, Option, Status, User } from '.'
 
 export type Question = {
   id: number
   statement?: string
+  denunciation?: boolean
   status?: Status
   user?: User
+  options?: Option[]
   notifications?: Notification[]
   createdAt?: Date
   updatedAt?: Date
@@ -24,7 +26,7 @@ export interface ShowQuestion {
 
 export namespace ShowQuestion {
   export type Input = { id: string }
-  export type Output = Question | undefined
+  export type Output = Question
 }
 
 export interface UpdateQuestion {
@@ -36,7 +38,8 @@ export namespace UpdateQuestion {
     id: string
     statement?: string
     status?: Status
-    user?: User
+    denunciation?: boolean
+    user: User
     notifications?: Notification[]
 
   }

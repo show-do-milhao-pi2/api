@@ -20,7 +20,7 @@ export class NotificationRepository extends PgRepository implements LoadNotifica
   }
 
   async show ({ id }: ShowInput): Promise<ShowOutput> {
-    return await this.getRepository(Notification).findOne(id, { relations: ['user', 'question'] })
+    return await this.getRepository(Notification).findOne(id, { relations: ['user', 'question', 'question.status'] })
   }
 
   async insert (input: InsertInput): Promise<InsertOutput> {

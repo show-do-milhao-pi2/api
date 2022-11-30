@@ -7,7 +7,7 @@ export class Finished {
   id!: number
 
   @Column()
-  because?: number
+  because?: string
 
   @OneToMany(() => Game, games => games.finished, { lazy: false })
   games?: Game[]

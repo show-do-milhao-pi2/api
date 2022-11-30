@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Status, User, Option, Notification, Game } from '.'
+import { Status, User, Option, Notification } from '.'
 
 @Entity({ name: 'questions' })
 export class Question {
@@ -8,6 +8,9 @@ export class Question {
 
   @Column()
   statement?: string
+
+  @Column({ default: false })
+  denunciation?: boolean
 
   @CreateDateColumn({ name: 'created_at', nullable: true })
   createdAt?: Date
@@ -28,7 +31,4 @@ export class Question {
 
   @OneToMany(() => Notification, question => question.question, { lazy: false })
   notifications?: Notification[]
-
-  @OneToMany(() => Game, game => game.question, { lazy: false })
-  games?: Game[]
 }

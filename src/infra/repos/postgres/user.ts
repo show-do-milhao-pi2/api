@@ -19,11 +19,12 @@ type DeleteOutput = DeleteUser.Output
 
 export class UserRepository extends PgRepository implements LoadUsers, ShowUser, UpdateUser, DeleteUser, InsertUser, ShowUserByNickName {
   async get (input: GetInput): Promise<GetOutput> {
-    return await this.getRepository(User).find(input !== undefined ? { order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'games', 'games.question', 'games.award', 'games.help', 'games.finished', 'games.option'], where: { id: Not(input.id) } } : { order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'games', 'games.question', 'games.award', 'games.help', 'games.finished', 'games.option'] })
+    return await this.getRepository(User).find(input !== undefined ? { order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'notifications.question.status', 'games', 'games.finished'], where: { id: Not(input.id) } } : { order: { name: 'ASC' }, select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'notifications.question.status', 'games', 'games.finished'] })
   }
 
   async show ({ id }: ShowInput): Promise<ShowOutput> {
-    return await this.getRepository(User).findOne(id, { select: ['id', 'name', 'nickname'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'games', 'games.question', 'games.award', 'games.help', 'games.finished', 'games.option'] })
+    const user = await this.getRepository(User).findOne(id, { select: ['id', 'name', 'nickname', 'avatar'], relations: ['questions', 'questions.status', 'notifications', 'notifications.question', 'notifications.question.status', 'games', 'games.finished'] })
+    return user
   }
 
   async showByNickName ({ nickname }: ShowNickNameInput): Promise<ShowNickNameOutput> {

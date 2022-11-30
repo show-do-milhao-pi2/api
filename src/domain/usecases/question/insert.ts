@@ -1,6 +1,5 @@
 import { ContentNotFound } from '@/application/errors'
 import { InsertQuestion as Save, Question, LoadUsers, User, InsertNotification } from '@/domain/contracts/repos'
-
 type Setup = (repo: Save, loadUsers: LoadUsers, saveNotification: InsertNotification) => InsertQuestion
 type Input = Save.Input
 type Output = Question

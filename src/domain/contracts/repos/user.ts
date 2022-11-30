@@ -1,4 +1,4 @@
-import { Notification, Question } from '.'
+import { Game, Log, Notification, Question } from '.'
 
 export type User = {
   id: number
@@ -8,6 +8,8 @@ export type User = {
   password?: string
   notifications?: Notification[]
   questions?: Question[]
+  logs?: Log[]
+  games?: Game[]
   createdAt?: Date
   updatedAt?: Date
 }
@@ -48,7 +50,10 @@ export namespace UpdateUser {
     id: string
     name?: string
     nickname?: string
+    notifications?: Notification[]
     questions?: Question[]
+    logs?: Log[]
+    games?: Game[]
     avatar?: string
     password?: string
   }
@@ -61,11 +66,10 @@ export interface InsertUser {
 
 export namespace InsertUser {
   export type Input = {
-    name?: string
-    nickname?: string
-    questions?: Question[]
+    name: string
+    nickname: string
     avatar?: string
-    password?: string
+    password: string
   }
   export type Output = User | undefined
 }

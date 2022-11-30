@@ -6,5 +6,6 @@ type Output = LoadQuestions.Output
 export type ListQuestions = () => Promise<Output>
 
 export const setupListQuestions: Setup = (repo) => async () => {
-  return await repo.get()
+  const questions = await repo.get()
+  return questions.slice(0, 7)
 }

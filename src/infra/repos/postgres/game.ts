@@ -15,11 +15,11 @@ type DeleteOutput = DeleteGame.Output
 
 export class GameRepository extends PgRepository implements LoadGames, ShowGame, UpdateGame, DeleteGame, InsertGame {
   async get (): Promise<GetOutput> {
-    return await this.getRepository(Game).find({ order: { id: 'ASC' }, relations: ['question', 'award', 'help', 'finished', 'user', 'option'] })
+    return await this.getRepository(Game).find({ order: { id: 'ASC' }, relations: ['finished', 'user'] })
   }
 
   async show ({ id }: ShowInput): Promise<ShowOutput> {
-    return await this.getRepository(Game).findOne(id, { relations: ['question', 'award', 'help', 'finished', 'user', 'option'] })
+    return await this.getRepository(Game).findOne(id, { relations: ['finished', 'user'] })
   }
 
   async insert (input: InsertInput): Promise<InsertOutput> {

@@ -8,11 +8,13 @@ import { User } from '@/infra/repos/postgres/entities'
 
 type HttpRequest = Save.Input & { passwordConfirmation: string }
 
-type Model = Error | IUser
+type Model = Error | {user: IUser, accessToken: string}
 export class InsertUserController extends Controller {
   constructor (private readonly insertUser: InsertUser) {
     super()
   }
+
+  // Método responsável por chamar a função do caso de uso de criar usuário
 
   async perform (httpRequest: Save.Input): Promise<HttpResponse<Model>> {
     try {
@@ -22,6 +24,8 @@ export class InsertUserController extends Controller {
       return badRequest(new Error(error.message))
     }
   }
+
+  // Método responsável por validar os campos
 
   override async buildValidators ({ name, nickname, password, passwordConfirmation }: HttpRequest): Promise<Validator[]> {
     return [

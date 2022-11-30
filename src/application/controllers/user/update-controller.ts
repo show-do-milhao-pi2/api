@@ -5,8 +5,9 @@ import { UpdateUser } from '@/domain/usecases/user'
 import { UpdateUser as Save, User as IUser } from '@/domain/contracts/repos'
 
 import { User } from '@/infra/repos/postgres/entities'
+import { FilesInput } from '@/domain/entities'
 
-type HttpRequest = Save.Input & { passwordConfirmation?: string }
+type HttpRequest = Save.Input & { passwordConfirmation?: string } & FilesInput
 
 type Model = Error | IUser
 export class UpdateUserController extends Controller {
@@ -23,11 +24,17 @@ export class UpdateUserController extends Controller {
     }
   }
 
-  override async buildValidators ({ id, password, passwordConfirmation, nickname }: HttpRequest): Promise<Validator[]> {
+  override async buildValidators ({ id, password, passwordConfirmation, nickname, files }: HttpRequest): Promise<Validator[]> {
+    let avatar
+    if (files !== undefined) {
+      avatar = files?.filter((file) => file.fileName === 'avatar')[0]
+    }
+    console.log(files)
     return [
       ...builder.of({ value: id, fieldName: 'id' }).required().build(),
       ...builder.of({ value: password, fieldName: 'password' }).sometimes().between(8, 20).password(passwordConfirmation).build(),
-      ...(await builder.of({ value: { value: nickname, id }, fieldName: 'nickname' }).required().unique(User)).build()
+      ...(await builder.of({ value: { value: nickname, id }, fieldName: 'nickname' }).required().unique(User)).build(),
+      ...builder.of({ value: avatar, fieldName: 'avatar' }).sometimes().image({ allowed: ['jpg', 'png'], maxSizeInMb: 40 }).build()
     ]
   }
 }

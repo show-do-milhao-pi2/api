@@ -1,13 +1,13 @@
-import { Question, User, Awards, Option, Help, Finished } from '.'
+import { User, Finished } from '.'
 
 export type Game = {
   id: number
-  award?: Awards
-  option?: Option
-  help?: Help
+  award?: number
+  help?: boolean
   finished?: Finished
   user?: User
-  question?: Question
+  questions?: number
+  denunciation?: boolean
   createdAt?: Date
   updatedAt?: Date
 }
@@ -36,13 +36,11 @@ export interface UpdateGame {
 export namespace UpdateGame {
   export type Input = {
     id: string
-    award?: Awards
-    option?: Option
-    help?: Help
+    award?: number
+    help?: boolean
     finished?: Finished
     user?: User
-    question?: Question
-  }
+    questions?: number }
   export type Output = Game | undefined
 }
 
@@ -52,13 +50,11 @@ export interface InsertGame {
 
 export namespace InsertGame {
   export type Input = {
-    award?: Awards
-    option?: Option
-    help?: Help
+    award?: number
+    help?: boolean
     finished?: Finished
     user?: User
-    question?: Question
-  }
+    questions?: number }
   export type Output = Game | undefined
 }
 
